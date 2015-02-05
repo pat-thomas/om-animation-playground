@@ -25,3 +25,11 @@
                   :y      y}))
          coordinates)))
 
+(defn multiples
+  [upper-limit]
+  (reduce (fn [acc n]
+            (if (= (mod upper-limit n) 0)
+              (conj acc n)
+              acc))
+          []
+          (range 2 (inc upper-limit))))

@@ -1,42 +1,67 @@
 (ns om-animation-playground.core
-  (:require [om.core :as om  :include-macros true]
-            [om.dom  :as dom :include-macros true]
-            [om-animation-playground.components :refer [grid-cell grid-row grid app]])
+  (:require [om.core                         :as om  :include-macros true]
+            [om.dom                          :as dom :include-macros true]
+            [om-animation-playground.state   :as state]
+            [om-animation-playground.animations.pulse :as pulse]
+            [om-animation-playground.helpers :as helpers])
   (:require-macros [om-utils.core :refer [defcomponent]]))
 
 (enable-console-print!)
-
-(def app-state (atom {:tick 0}))
-
-(defn multiples
-  [upper-limit]
-  (reduce (fn [acc n]
-            (if (= (mod upper-limit n) 0)
-              (conj acc n)
-              acc))
-          []
-          (range 2 (inc upper-limit))))
-
-(defn debug-app-state
-  [& ks]
-  (println (str ks " => " (get-in @app-state ks))))
-
-(defn app-loop-tick
-  []
-  (println "tick...")
-  (debug-app-state :tick)
-  (swap! app-state update-in [:tick] inc))
 
 (defn start-app-loop
   [time handler]
   (.setInterval js/window handler time))
 
+(def animation-component-dispatch
+  {"pulse" pulse/root})
+
+(defn select-animation-option
+  [animation-option]
+  (dom/option
+   #js {:className "select-animation-option"}
+   animation-option))
+
+(defcomponent select-animation
+  (render
+   (dom/select
+    #js {:id       "select-animation"
+         :selected (:selected-animation data)
+         :onChange (fn [e]
+                     (om/transact! data (fn [state]
+                                          (assoc state :selected-animation (.. e -target -value)))))}
+    (select-animation-option "pulse")
+    ;;(select-animation-option "bar")
+    )))
+
+(defcomponent container
+  (render
+   (dom/div
+    #js {:id "app-container"}
+    (when-let [selected-animation (get animation-component-dispatch (:selected-animation data))]
+      (om/build selected-animation data)))))
+
+(defcomponent app
+  (render
+   (dom/div
+    #js {:id "app"}
+    (om/build container data)
+    (om/build select-animation data))))
+
+(defn app-loop
+  [time]
+  (.setInterval
+   js/window
+   (fn []
+     (when-let [handler (:handler @state/app-state)]
+       (swap! state/app-state handler)))
+   time))
+
 (defn init!
   []
   (om/root
-   grid
-   app-state
+   app
+   state/app-state
    {:target (. js/document (getElementById "my-app"))})
-  (start-app-loop 1000 app-loop-tick))
+  (app-loop 1000))
 
 (init!)

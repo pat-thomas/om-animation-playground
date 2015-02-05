@@ -1,14 +1,43 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 body {
-  background: #222;
+  background: #333;
   color: #cdcdcd;
-  margin: 3em auto;
-  width: 567px;
+}
+
+#app-container {
+  height: 350px;
+  width: 600px;
+  background-color: #0d0d0d;
+  margin: 15px 0px 0px 15px;
+}
+
+#select-animation {
+  margin: 15px 0px 0px 15px;
+  background-color: #333;
+  color: #eee;
+  font-family: 'Menlo';
+}
+
+.animation {
+}
+
+.cell {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+}
+
+.cell.highlighted {
+  background-color: #eee;
 }
 
 .grid-row {
   float: left;
   width: 30px;
-  /*border: 1px solid red;*/
 }
 
 .grid-cell {
