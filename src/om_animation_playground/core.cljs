@@ -1,9 +1,11 @@
 (ns om-animation-playground.core
-  (:require [om.core                         :as om  :include-macros true]
-            [om.dom                          :as dom :include-macros true]
-            [om-animation-playground.state   :as state]
-            [om-animation-playground.animations.pulse :as pulse]
-            [om-animation-playground.helpers :as helpers])
+  (:require [om.core                                      :as om  :include-macros true]
+            [om.dom                                       :as dom :include-macros true]
+            [om-animation-playground.state                :as state]
+            [om-animation-playground.debugger             :as debugger]
+            [om-animation-playground.animations.pulse     :as pulse]
+            [om-animation-playground.animations.pulse-two :as pulse-two]
+            [om-animation-playground.helpers              :as helpers])
   (:require-macros [om-utils.core :refer [defcomponent]]))
 
 (enable-console-print!)
@@ -13,7 +15,8 @@
   (.setInterval js/window handler time))
 
 (def animation-component-dispatch
-  {"pulse" pulse/root})
+  {"pulse"     pulse/root
+   "pulse two" pulse-two/root})
 
 (defn select-animation-option
   [animation-option]
@@ -30,8 +33,7 @@
                      (om/transact! data (fn [state]
                                           (assoc state :selected-animation (.. e -target -value)))))}
     (select-animation-option "pulse")
-    ;;(select-animation-option "bar")
-    )))
+    (select-animation-option "pulse two"))))
 
 (defcomponent container
   (render
@@ -45,7 +47,8 @@
    (dom/div
     #js {:id "app"}
     (om/build container data)
-    (om/build select-animation data))))
+    (om/build select-animation data)
+    (om/build debugger/root data))))
 
 (defn app-loop
   [time]
