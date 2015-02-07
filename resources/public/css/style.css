@@ -1,38 +1,52 @@
 * {
-  margin: 0px;
+  margin:  0px;
   padding: 0px;
 }
 
 body {
-  background: #333;
-  color: #cdcdcd;
-  font-family: 'Menlo';
+  background-color: #333;
+  color:            #cdcdcd;
+  font-family:      'Menlo';
 }
 
 #app-container {
-  height: 350px;
-  width: 600px;
+  height:           350px;
+  width:            600px;
   background-color: #0d0d0d;
-  margin: 15px 0px 0px 15px;
+  margin:           15px 0px 0px 15px;
 }
 
 #select-animation {
-  margin: 15px 0px 0px 15px;
+  margin:           15px 0px 0px 15px;
   background-color: #333;
-  color: #eee;
-  border: none;
+  color:            #eee;
+  border:           none;
 }
 
 #debugger {
   margin: 15px 0px 0px 15px;
 }
 
+#toggle-debugger {
+  background-color: #333;
+  color:            #cdcdcd;
+  font-family:      'Menlo';
+  border:           none;
+  padding:          3px;
+  border-radius:    5px;
+  margin-bottom:    5px;
+}
+
+#toggle-debugger:hover {
+  background: #4c4c4c;
+}
+
 .animation {
 }
 
 .cell {
-  height: 40px;
-  width: 40px;
+  height:        40px;
+  width:         40px;
   border-radius: 20px;
 }
 
@@ -47,22 +61,22 @@ body {
 
 .grid-cell {
   background-color: #222;
-  height: 20px;
-  width: 20px;
-  margin: 5px;
-  border-radius: 10px;
-  transition: border-radius 0.6s, box-shadow 0.6s, background-color 0.6s;
+  height:           20px;
+  width:            20px;
+  margin:           5px;
+  border-radius:    10px;
+  transition:       border-radius 0.6s, box-shadow 0.6s, background-color 0.6s;
 }
 
 .grid-cell.highlighted {
-  transition: border-radius 0.6s, box-shadow 0.6s, background-color 0.6s;
-  border-radius: 2px;
+  transition:       border-radius 0.6s, box-shadow 0.6s, background-color 0.6s;
+  border-radius:    2px;
   background-color: #eee;
 }
 
 .grid-cell.lowlighted {
-  transition: border-radius 0.6s, box-shadow 0.6s, background-color 0.6s;
-  box-shadow:inset 0px 0px 0px 1px #eee;
-  border-radius: 2px;
+  transition:       border-radius 0.6s, box-shadow 0.6s, background-color 0.6s;
+  box-shadow:       inset 0px 0px 0px 1px #eee;
+  border-radius:    2px;
   background-color: #222;
 }

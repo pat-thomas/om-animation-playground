@@ -7,7 +7,8 @@
 (defcomponent toggle
   (render
    (dom/button
-    #js {:onClick (fn [_]
+    #js {:id      "toggle-debugger"
+         :onClick (fn [_]
                     (om/transact! data [:debugger :show] not))}
     "Toggle debugger")))
 
