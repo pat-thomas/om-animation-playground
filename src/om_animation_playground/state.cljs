@@ -2,7 +2,7 @@
 
 (def app-state
   (atom
-   {:debugger           {:show true}
+   {:debugger           {:show false}
     :tick               0
     :selected-animation "pulse"
     :handler            (fn [state]

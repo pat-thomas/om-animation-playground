@@ -39,6 +39,7 @@ body {
 
 #toggle-debugger:hover {
   background: #4c4c4c;
+  cursor:     pointer;
 }
 
 .animation {
