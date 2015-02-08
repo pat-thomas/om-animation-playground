@@ -36,6 +36,7 @@
     (select-animation-option "pulse two"))))
 
 (defcomponent container
+  "Container for animations."
   (render
    (dom/div
     #js {:id "app-container"}
