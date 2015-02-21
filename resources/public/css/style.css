@@ -45,14 +45,20 @@ body {
 .animation {
 }
 
+.column {
+  float: left;
+}
+
 .cell {
   height:        40px;
   width:         40px;
   border-radius: 20px;
+  transition:    background-color 0.8s;
 }
 
 .cell.highlighted {
   background-color: #eee;
+  transition:       background-color 0.4s;
 }
 
 .grid-row {

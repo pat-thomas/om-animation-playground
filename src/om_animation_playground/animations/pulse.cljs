@@ -4,8 +4,23 @@
             [om-animation-playground.common.components :as components])
   (:require-macros [om-utils.core :refer [defcomponent]]))
 
+(defn calc-highlighted
+  [tick {:keys [column-num row-num]}]
+  (cond
+    (= (mod tick (+ column-num row-num)) 0)
+    "cell highlighted"
+
+    :else
+    "cell"))
+
 (defcomponent root
   (render
    (dom/div
     #js {:className "animation"}
-    (om/build components/cell data))))
+    (apply
+     dom/div
+     nil
+     (map (fn [column-num]
+            (om/build components/column data {:opts {:column-num       column-num
+                                                     :highlighted-pred calc-highlighted}}))
+          (map inc (range 15)))))))

@@ -3,11 +3,20 @@
             [om.dom  :as dom :include-macros true])
   (:require-macros [om-utils.core :refer [defcomponent]]))
 
-(defcomponent cell
+(defcomponent blinking-cell
+  [highlighted-pred]
   (render
-   (dom/div
-    #js
-    {:className (if (= (mod (:tick data) 2) 0)
-                  "cell"
-                  "cell highlighted")})))
+   (let [{:keys [tick]} data]
+     (dom/div
+      #js
+      {:className (highlighted-pred tick opts)}))))
+
+(defcomponent column
+  (render
+   (apply
+    dom/div
+    #js {:className "column"}
+    (map (fn [row-num]
+           (om/build blinking-cell data {:opts (assoc opts :row-num row-num)}))
+         (range 8)))))
 

@@ -66,6 +66,6 @@
    app
    state/app-state
    {:target (. js/document (getElementById "my-app"))})
-  (app-loop 1000))
+  (app-loop 600))
 
 (init!)
